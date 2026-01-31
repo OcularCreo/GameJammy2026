@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - cucumbers
+  - killzone
   layers:
   - Default
   - TransparentFX
