@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum Items { cucumber, orange, pMask, gMask, towel , empty};
+public enum Items { cucumber, orange, pMask, gMask, towel};
 
 public class gameManager : MonoBehaviour
 {

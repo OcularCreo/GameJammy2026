@@ -34,13 +34,15 @@ public class Vampire : MonoBehaviour
 
         vampireManager = FindAnyObjectByType<vampireManager>();
 
+        treated = false;
+        missingItem = (Items)Random.Range(0, 5);
+
         //ensure that the sprite renderer was found and set the sprite to the corresponding missing item
-        if(spriteRenderer != null )
+        if (spriteRenderer != null )
         {
             //spriteRenderer.sprite = unTreatedVampireSprites[(int)missingItem];
         }
 
-        treated = false;
         startPos = transform.position;
 
         amp = Random.Range(0.1f, maxAmp);
