@@ -300,7 +300,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9e83236c7f4bf145b713eff04d9a53d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cursor: {fileID: 2800000, guid: bc5d4a5aa6b3d0e4e8f72101699981d9, type: 3}
+  handOpen: {fileID: 2800000, guid: ba85c5a1bebbaf04ca1d1ea8290d70a7, type: 3}
+  handClosed: {fileID: 2800000, guid: afbc912b1758ee14cad11e752027f7ee, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
