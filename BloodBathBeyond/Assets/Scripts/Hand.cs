@@ -19,7 +19,7 @@ public class Hand : MonoBehaviour
     [SerializeField] GameObject[] bins;
     //private int binQuantity;
     private Items binType;
-    [SerializeField] private ItemBin itemBin;
+    //[SerializeField] private ItemBin itemBin;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
