@@ -1,9 +1,11 @@
 using Mono.Cecil.Cil;
 using System.Runtime.CompilerServices;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class Vampire : MonoBehaviour
 {
+    [Header("Sprites")]
     [SerializeField] private Sprite[] unTreatedVampireSprites;
     [SerializeField] private Sprite[] TreatedVampireSprites;
     [SerializeField] private Sprite[] attackVampireSprites;
@@ -12,13 +14,15 @@ public class Vampire : MonoBehaviour
     private Transform vtransform;
 
     private Items missingItem;
-    [SerializeField] private float speed;
-
     private bool treated;
     private vampireManager vampireManager;
-    [SerializeField] private float amp;
-    [SerializeField] private float freq;
 
+    [Header("Bobbing Variables")]
+    [SerializeField] private float bobspeed;
+    [SerializeField] private float maxAmp;
+    [SerializeField] private float maxFreq;
+    private float amp;
+    private float freq;
     private Vector2 startPos;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -26,7 +30,7 @@ public class Vampire : MonoBehaviour
     {
         missingItem = (Items)Random.Range(0, 5);                                //randomly choose what item is missing
         spriteRenderer = GetComponent<SpriteRenderer>();                        //get the instance's sprite renderer
-        vtransform = GetComponent<Transform>();                                  //get instance transform
+        vtransform = GetComponent<Transform>();                                 //get instance transform
 
         vampireManager = FindAnyObjectByType<vampireManager>();
 
@@ -39,8 +43,8 @@ public class Vampire : MonoBehaviour
         treated = false;
         startPos = transform.position;
 
-        amp = Random.Range(0.25f, 0.6f);
-        freq = Random.Range(0.25f, 0.75f);
+        amp = Random.Range(0.1f, maxAmp);
+        freq = Random.Range(0.1f, maxFreq);
     }
 
     // Update is called once per frame
@@ -70,5 +74,14 @@ public class Vampire : MonoBehaviour
     void attack()
     {
 
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "killzone")
+        {
+            Debug.Log("collided");
+            Destroy(gameObject);
+        }
     }
 }
