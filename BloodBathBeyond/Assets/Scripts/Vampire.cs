@@ -1,3 +1,5 @@
+using Mono.Cecil.Cil;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Vampire : MonoBehaviour
@@ -14,6 +16,10 @@ public class Vampire : MonoBehaviour
 
     private bool treated;
     private vampireManager vampireManager;
+    [SerializeField] private float amp;
+    [SerializeField] private float freq;
+
+    private Vector2 startPos;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -31,12 +37,22 @@ public class Vampire : MonoBehaviour
         }
 
         treated = false;
+        startPos = transform.position;
+
+        amp = Random.Range(0.25f, 0.6f);
+        freq = Random.Range(0.25f, 0.75f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        vtransform.Translate(Vector2.right * vampireManager.vampireMoveSpeed * Time.deltaTime);
+
+        transform.Translate(Vector2.right * vampireManager.vampireMoveSpeed * Time.deltaTime);
+
+        float newY = startPos.y + Mathf.Sin(Time.time * freq) * amp;
+
+        transform.position = new Vector2 (transform.position.x, newY);
+
     }
 
 
