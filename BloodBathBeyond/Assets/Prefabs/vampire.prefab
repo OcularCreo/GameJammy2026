@@ -104,4 +104,5 @@ MonoBehaviour:
   TreatedVampireSprites: []
   attackVampireSprites: []
   speed: 1
-  vampireManager: {fileID: 4403782467783321436, guid: ef652b673cdc2dd45a287d3f23aef668, type: 3}
+  amp: 0
+  freq: 1
