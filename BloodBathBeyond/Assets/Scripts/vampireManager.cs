@@ -3,18 +3,17 @@ using UnityEngine;
 public class vampireManager : MonoBehaviour
 {
     [SerializeField] private GameObject vampirePrefab;
-    [SerializeField] private float spawnRate = 5f;
+    [SerializeField] private float spawnRate = 9f;   //Delay between each spawn (the lower, the faster they spawn in)
     private float spawnTimer;
     private int spawnCount;
 
-    public float vampireMoveSpeed;
+    public float vampireMoveSpeed = 0.75f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         spawnTimer = 0;
         spawnCount = 0;
-        vampireMoveSpeed = 0.75f;
     }
 
     // Update is called once per frame
@@ -23,19 +22,21 @@ public class vampireManager : MonoBehaviour
 
         spawnTimer -= Time.deltaTime;
 
-        if (spawnTimer <= 0){
+        if (spawnTimer <= 0)
+        {
             Instantiate(vampirePrefab, transform.position, Quaternion.identity);
             spawnCount++;
 
-            if(spawnCount % 5 == 0 && spawnRate > 2)
+            if (spawnCount % 2 == 0 && spawnRate > 2.3)
             {
-                spawnRate -= 2;
-                vampireMoveSpeed += 0.25f;
+                spawnRate -= 0.55f;
+                vampireMoveSpeed += 0.15f;
             }
 
-            spawnTimer = spawnRate + Random.Range(0, 3f);
-        } 
 
-         
+            spawnTimer = spawnRate + Random.Range(0, 0.5f);
+        }
+
+
     }
 }
