@@ -9,7 +9,7 @@ public class vampireManager : MonoBehaviour
 
     public float vampireMoveSpeed = 0.75f;
 
-    [SerializeField] private Quaternion spwanRotation = Quaternion.Euler(0f, 0f, 180f);
+    [SerializeField] private Quaternion spawnRotation = Quaternion.Euler(0f, 0f, 180f);
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -26,7 +26,7 @@ public class vampireManager : MonoBehaviour
 
         if (spawnTimer <= 0)
         {
-            Instantiate(vampirePrefab, transform.position, spwanRotation);
+            Instantiate(vampirePrefab, transform.position, spawnRotation);
             spawnCount++;
 
             if (spawnCount % 2 == 0 && spawnRate > 2.3)

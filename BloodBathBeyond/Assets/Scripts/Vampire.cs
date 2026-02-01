@@ -35,21 +35,15 @@ public class Vampire : MonoBehaviour
         vampireManager = FindAnyObjectByType<vampireManager>();     //get the vampiremanager script
         treated = false;                                            //start treated as faulse
 
-        selectMissing(Random.Range(1,4));                 //Call select missing items function to choose what's missing
+        //towel sprite at index 0 will be known as the sprite that includes the towel
+        towelSprites[0].SetActive(true);
+        towelSprites[1].SetActive(false);
 
-        //ensure that the sprite renderer was found and set the sprite to the corresponding missing item
-        if (spriteRenderer != null )
-        {
-            //spriteRenderer.sprite = unTreatedVampireSprites[(int)missingItem];
-        }
+        selectMissing(Random.Range(1,4));                 //Call select missing items function to choose what's missing
 
         startPos = transform.position;
         amp = Random.Range(0.1f, maxAmp);
         freq = Random.Range(0.1f, maxFreq);
-
-        //towel sprite at index 0 will be known as the sprite that includes the towel
-        towelSprites[0].SetActive(true);
-        towelSprites[1].SetActive(false);
 
     }
 
@@ -82,6 +76,7 @@ public class Vampire : MonoBehaviour
             switch (selectedItem)
             {
                 case Items.orange:
+                    itemPool.Remove(Items.cucumber);
                     missingEyePiece = setupEyes(treatmentItems[(int)Items.orange], treatmentItems[(int)Items.cucumber], oranges, missingEye);
                     break;
                 case Items.cucumber:
@@ -105,7 +100,7 @@ public class Vampire : MonoBehaviour
                 treatmentItems[(int)Items.orange].SetActive(false);
             } else
             {
-                treatmentItems[(int)Items.orange].SetActive(false);
+                treatmentItems[(int)Items.cucumber].SetActive(false);
             }
         }
     
@@ -129,7 +124,7 @@ public class Vampire : MonoBehaviour
     void Update()
     {
 
-        transform.Translate(Vector2.right * vampireManager.vampireMoveSpeed * Time.deltaTime);
+        transform.Translate(Vector2.right * vampireManager.vampireMoveSpeed * Time.deltaTime, Space.World);
 
         float newY = startPos.y + Mathf.Sin(Time.time * freq) * amp;
 
