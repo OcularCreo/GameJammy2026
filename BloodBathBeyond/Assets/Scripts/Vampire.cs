@@ -9,6 +9,7 @@ public class Vampire : MonoBehaviour
     [SerializeField] private GameObject[] treatmentItems;
     [SerializeField] private GameObject[] cucumbers;
     [SerializeField] private GameObject[] oranges;
+    [SerializeField] private GameObject[] towelSprites;
     [SerializeField] private Sprite[] attackVampireSprites;
 
     private SpriteRenderer spriteRenderer;
@@ -34,19 +35,16 @@ public class Vampire : MonoBehaviour
         vampireManager = FindAnyObjectByType<vampireManager>();     //get the vampiremanager script
         treated = false;                                            //start treated as faulse
 
-        //missingItems = new Items[Random.Range(1, 4)];   //Randomly choose how many missing items (1-3)
-        selectMissing(Random.Range(1,4));             //Call select missing items function to choose what's missing
+        //towel sprite at index 0 will be known as the sprite that includes the towel
+        towelSprites[0].SetActive(true);
+        towelSprites[1].SetActive(false);
 
-        //ensure that the sprite renderer was found and set the sprite to the corresponding missing item
-        if (spriteRenderer != null )
-        {
-            //spriteRenderer.sprite = unTreatedVampireSprites[(int)missingItem];
-        }
+        selectMissing(Random.Range(1,4));                 //Call select missing items function to choose what's missing
 
         startPos = transform.position;
-
         amp = Random.Range(0.1f, maxAmp);
         freq = Random.Range(0.1f, maxFreq);
+
     }
 
     //helper function to choose what items are missing
@@ -78,20 +76,15 @@ public class Vampire : MonoBehaviour
             switch (selectedItem)
             {
                 case Items.orange:
-                    /*
                     itemPool.Remove(Items.cucumber);
-                    treatmentItems[(int)Items.orange].SetActive(true);
-                    oranges[missingEye].SetActive(false); 
-                    treatmentItems[(int)Items.cucumber].SetActive(false); */
                     missingEyePiece = setupEyes(treatmentItems[(int)Items.orange], treatmentItems[(int)Items.cucumber], oranges, missingEye);
                     break;
                 case Items.cucumber:
                     itemPool.Remove(Items.orange);
-                    /*
-                    treatmentItems[(int)Items.orange].SetActive(false);
-                    cucumbers[missingEye].SetActive(false);
-                    treatmentItems[(int)Items.cucumber].SetActive(true);*/
                     missingEyePiece = setupEyes(treatmentItems[(int)Items.cucumber], treatmentItems[(int)Items.orange], cucumbers, missingEye);
+                    break;
+                case Items.towel:
+                    toggleTowel();
                     break;
                 default:
                     treatmentItems[(int)selectedItem].SetActive(false);
@@ -107,10 +100,16 @@ public class Vampire : MonoBehaviour
                 treatmentItems[(int)Items.orange].SetActive(false);
             } else
             {
-                treatmentItems[(int)Items.orange].SetActive(false);
+                treatmentItems[(int)Items.cucumber].SetActive(false);
             }
         }
     
+    }
+
+    void toggleTowel()
+    {
+        towelSprites[0].SetActive(!towelSprites[0].activeSelf);
+        towelSprites[1].SetActive(!towelSprites[0].activeSelf);
     }
 
     bool setupEyes(GameObject toActivate, GameObject toDeactive, GameObject[] eyes, int deactiveEyeIdx)
@@ -125,7 +124,7 @@ public class Vampire : MonoBehaviour
     void Update()
     {
 
-        transform.Translate(Vector2.right * vampireManager.vampireMoveSpeed * Time.deltaTime);
+        transform.Translate(Vector2.right * vampireManager.vampireMoveSpeed * Time.deltaTime, Space.World);
 
         float newY = startPos.y + Mathf.Sin(Time.time * freq) * amp;
 
@@ -133,41 +132,54 @@ public class Vampire : MonoBehaviour
 
     }
 
-
+    //public funciton that should be called when the hand tries to give an item to a vampire instance
     public void recieveItem(Items givenItem)
     {
-
+        //check if the given item matches any missing items
         if (missingItems.Contains(givenItem))
         {
+            //if it does match remove it from the list of missing items
             missingItems.Remove(givenItem);
 
-            if(givenItem == Items.orange)
+            //set the correct item to be active on the vampire
+            switch(givenItem)
             {
-                oranges[0].SetActive(true);
-                oranges[1].SetActive(true);
-            } else if(givenItem == Items.cucumber)
-            {
-                cucumbers[0].SetActive(true);
-                cucumbers[1].SetActive(true);
-            } else
-            {
-                treatmentItems[(int)givenItem].SetActive(true);
+                case Items.orange:
+                    setActiveEyes(oranges, true);
+                    break;
+                case Items.cucumber:
+                    setActiveEyes(cucumbers, true);
+                    break;
+                case Items.towel:
+                    toggleTowel();
+                    break;
+                default:
+                    treatmentItems[(int)givenItem].SetActive(true);
+                    break;
             }
-                
-            //make item visible
-            Debug.Log("Gave the CORRECT ITEM");
+            
         } else
         {
             Debug.Log("Gave the INCORRECT item - I want to suck your finger");
             attack();
         }
 
+        //if there are no longer any more missing items then set treated to true
         if(missingItems.Count == 0)
         {
             Debug.Log("Happy vampire client");
             treated = true;
         }
 
+    }
+
+    //helper function to toggle all eyes on or off
+    void setActiveEyes(GameObject[] eyes, bool active)
+    {
+        foreach (GameObject eye in eyes)
+        {
+            eye.SetActive(active);
+        }
     }
 
     void attack()
