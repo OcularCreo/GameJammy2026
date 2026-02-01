@@ -1,4 +1,5 @@
 using System.Drawing;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -9,6 +10,16 @@ public class Hand : MonoBehaviour
     [SerializeField] Texture2D handClosed;
     [SerializeField] Texture2D handCucumber;
     [SerializeField] Texture2D handOrange;
+
+    [SerializeField] Sprite orange;
+    [SerializeField] Sprite cucumber;
+    [SerializeField] Sprite towel;
+    [SerializeField] Sprite mask;
+
+    private SpriteRenderer orangeRenderer;
+    private SpriteRenderer cucumberRenderer;
+    private SpriteRenderer towelRenderer;
+    private SpriteRenderer maskRenderer;
 
     private Vector2 handOpenOffset;
     private Vector2 handClosedOffset;
@@ -38,6 +49,12 @@ public class Hand : MonoBehaviour
         bins = GameObject.FindGameObjectsWithTag("Bin");
         //binQuantity = bins.Length;
 
+        // item sprite renderers for holding in  hand
+        orangeRenderer = orange.GetComponent<SpriteRenderer>();
+        cucumberRenderer = cucumber.GetComponent<SpriteRenderer>();
+        towelRenderer = towel.GetComponent<SpriteRenderer>();
+        maskRenderer = mask.GetComponent<SpriteRenderer>();
+
     }
 
     // Update is called once per frame
@@ -53,7 +70,7 @@ public class Hand : MonoBehaviour
 
             foreach (GameObject bin in bins) // go through all bins
             {
-                
+
                 if (bin.GetComponent<Collider2D>().OverlapPoint(mousePosition)) // if mouse overlaps with a bin
                 {
                     if (bin.GetComponent<ItemBin>().ItemCount > 0) // if the bin isn't empty
@@ -65,19 +82,23 @@ public class Hand : MonoBehaviour
                         switch (itemType)
                         {
                             case Items.orange:
-                                Cursor.SetCursor(handOrange, handOrangeOffset, CursorMode.ForceSoftware);
+                                //Cursor.SetCursor(handOrange, handOrangeOffset, CursorMode.ForceSoftware);
                                 break;
                             case Items.cucumber:
-                                Cursor.SetCursor(handCucumber, handCucumberOffset, CursorMode.ForceSoftware);
+                                //Cursor.SetCursor(handCucumber, handCucumberOffset, CursorMode.ForceSoftware);
+                                break;
+                            case Items.towel:
+                                break;
+                            case Items.mask:
                                 break;
                         }
                     }
-                    
+
                 }
             }
 
         }
-        else if(Input.GetMouseButtonUp(0)) // release left mouse button
+        else if (Input.GetMouseButtonUp(0)) // release left mouse button
         {
             Cursor.SetCursor(handOpen, handOpenOffset, CursorMode.ForceSoftware); // cursor to hand open
             if (itemHeld)
@@ -93,6 +114,39 @@ public class Hand : MonoBehaviour
             }
         }
 
+        // make picked up item follow the mouse
+        if (Input.GetMouseButton(0))
+        {
+            if (itemHeld)
+            {
+                switch (itemType)
+                {
+                    case Items.orange:
+                        orangeRenderer.enabled = true;
+                        orangeRenderer.transform.position.Set(mousePosition.x - 2, mousePosition.y - 2, 0f);
+                        break;
+                    case Items.cucumber:
+                        cucumberRenderer.enabled = true;
+                        cucumberRenderer.transform.position.Set(mousePosition.x - 2, mousePosition.y - 2, 0f);
+                        break;
+                    case Items.towel:
+                        towelRenderer.enabled = true;
+                        towelRenderer.transform.position.Set(mousePosition.x - 2, mousePosition.y - 2, 0f);
+                        break;
+                    case Items.mask:
+                        maskRenderer.enabled = true;
+                        maskRenderer.transform.position.Set(mousePosition.x - 2, mousePosition.y - 2, 0f);
+                        break;
+                }
+            }
+            else
+            {
+                orangeRenderer.enabled = false;
+                cucumberRenderer.enabled = false;
+                towelRenderer.enabled = false;
+                maskRenderer.enabled = false;
+            }
+        }
             
     }
 
