@@ -1,4 +1,7 @@
 using Mono.Cecil.Cil;
+using NUnit.Framework;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEditor.Rendering;
 using UnityEngine;
@@ -11,9 +14,10 @@ public class Vampire : MonoBehaviour
     [SerializeField] private Sprite[] attackVampireSprites;
 
     private SpriteRenderer spriteRenderer;
-    private Transform vtransform;
 
-    private Items missingItem;
+    [SerializeField] private Items[] missingItems;
+    private List<Items> list = null;
+
     private bool treated;
     private vampireManager vampireManager;
 
@@ -28,14 +32,26 @@ public class Vampire : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        missingItem = (Items)Random.Range(0, 5);                                //randomly choose what item is missing
-        spriteRenderer = GetComponent<SpriteRenderer>();                        //get the instance's sprite renderer
-        vtransform = GetComponent<Transform>();                                 //get instance transform
-
+        
+        spriteRenderer = GetComponent<SpriteRenderer>();            //get the instance's sprite renderer
         vampireManager = FindAnyObjectByType<vampireManager>();
-
         treated = false;
-        missingItem = (Items)Random.Range(0, 5);
+
+        missingItems = new Items[Random.Range(1, 6)];
+
+        list = System.Enum.GetValues(typeof(Items))
+                                  .Cast<Items>()
+                                  .ToList();
+
+        for(int i = 0; i < missingItems.Length; i++)
+        {
+            int index = Random.Range(0, list.Count);
+            
+            missingItems[i] = list[index];
+            list.Remove(list[index]);
+        }
+
+        Debug.Log(missingItems);
 
         //ensure that the sprite renderer was found and set the sprite to the corresponding missing item
         if (spriteRenderer != null )
@@ -59,18 +75,14 @@ public class Vampire : MonoBehaviour
 
         transform.position = new Vector2 (transform.position.x, newY);
 
+
+
     }
 
 
     void recieveItem(Items givenItem)
     {
-        if(givenItem == missingItem)
-        {
-            spriteRenderer.sprite = TreatedVampireSprites[(int)givenItem];
-        } else
-        {
-            attack();
-        }
+        
     }
 
     void attack()
