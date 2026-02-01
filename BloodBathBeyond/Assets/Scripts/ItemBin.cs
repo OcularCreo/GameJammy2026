@@ -8,7 +8,7 @@ public class ItemBin : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Items itemType;
 
-    private int ItemCount = 10;
+    public int ItemCount = 10;
 
     public void Start()
     {
