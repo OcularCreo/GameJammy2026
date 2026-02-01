@@ -140,10 +140,32 @@ public class Vampire : MonoBehaviour
         if (missingItems.Contains(givenItem))
         {
             missingItems.Remove(givenItem);
+
+            if(givenItem == Items.orange)
+            {
+                oranges[0].SetActive(true);
+                oranges[1].SetActive(true);
+            } else if(givenItem == Items.cucumber)
+            {
+                cucumbers[0].SetActive(true);
+                cucumbers[1].SetActive(true);
+            } else
+            {
+                treatmentItems[(int)givenItem].SetActive(true);
+            }
+                
+            //make item visible
             Debug.Log("Gave the CORRECT ITEM");
         } else
         {
             Debug.Log("Gave the INCORRECT item - I want to suck your finger");
+            attack();
+        }
+
+        if(missingItems.Count == 0)
+        {
+            Debug.Log("Happy vampire client");
+            treated = true;
         }
 
     }
@@ -159,6 +181,11 @@ public class Vampire : MonoBehaviour
         {
             Debug.Log("collided");
             Destroy(gameObject);
+
+            if (!treated)
+            {
+                //attack
+            }
         }
     }
 }
