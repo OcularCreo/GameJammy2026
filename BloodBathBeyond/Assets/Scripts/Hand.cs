@@ -55,18 +55,21 @@ public class Hand : MonoBehaviour
                 
                 if (bin.GetComponent<Collider2D>().OverlapPoint(mousePosition)) // if mouse overlaps with a bin
                 {
-                    binType = bin.GetComponent<ItemBin>().RemoveItem(); // remove one item from bin and get the bin type
-                    //Debug.Log(bin.GetComponent<ItemBin>().ItemCount);
-
-                    // set the cursor image to holding the correct item
-                    switch (binType)
+                    if (bin.GetComponent<ItemBin>().ItemCount > 0) // if the bin isn't empty
                     {
-                        case Items.orange:
-                            Cursor.SetCursor(handOrange, handOrangeOffset, CursorMode.ForceSoftware);
-                            break;
-                        case Items.cucumber:
-                            Cursor.SetCursor(handCucumber, handCucumberOffset, CursorMode.ForceSoftware);
-                            break;
+                        binType = bin.GetComponent<ItemBin>().RemoveItem(); // remove one item from bin and get the bin type
+                        //Debug.Log(bin.GetComponent<ItemBin>().ItemCount);
+
+                        // set the cursor image to holding the correct item
+                        switch (binType)
+                        {
+                            case Items.orange:
+                                Cursor.SetCursor(handOrange, handOrangeOffset, CursorMode.ForceSoftware);
+                                break;
+                            case Items.cucumber:
+                                Cursor.SetCursor(handCucumber, handCucumberOffset, CursorMode.ForceSoftware);
+                                break;
+                        }
                     }
                     
                 }
