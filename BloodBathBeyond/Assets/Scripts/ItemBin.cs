@@ -21,8 +21,6 @@ public class ItemBin : MonoBehaviour
     {
         if (ItemCount > 0)      //if the bin is not already empty
         {
-            ItemCount--;
-
             if (ItemCount == 0) //if the click emptied the bin, turn its sprite to empty
             {
                 spriteRenderer.sprite = binSprites[5];
