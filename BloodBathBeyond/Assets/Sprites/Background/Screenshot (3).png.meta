@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a5745615d5314644f92d1884ffc639f8
+guid: c77977c5bf5bd6f46b9c258c10257b33
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 916130457466836228
-    second: maskHand_0
+      213: 4253158374068911585
+    second: Screenshot (3)_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -72,10 +72,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 16384
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: maskHand_0
+      name: Screenshot (3)_0
       rect:
         serializedVersion: 2
-        x: 29
-        y: 33
-        width: 689
-        height: 332
+        x: 0
+        y: 0
+        width: 3840
+        height: 2160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4051a351ccfb6bc00800000000000000
-      internalID: 916130457466836228
+      spriteID: 1edfadbc101460b30800000000000000
+      internalID: 4253158374068911585
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      maskHand_0: 916130457466836228
+      Screenshot (3)_0: 4253158374068911585
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

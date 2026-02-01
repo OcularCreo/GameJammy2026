@@ -11,10 +11,10 @@ public class Hand : MonoBehaviour
     [SerializeField] Texture2D handCucumber;
     [SerializeField] Texture2D handOrange;
 
-    [SerializeField] Sprite orange;
-    [SerializeField] Sprite cucumber;
-    [SerializeField] Sprite towel;
-    [SerializeField] Sprite mask;
+    [SerializeField] GameObject orange;
+    [SerializeField] GameObject cucumber;
+    [SerializeField] GameObject towel;
+    [SerializeField] GameObject mask;
 
     private SpriteRenderer orangeRenderer;
     private SpriteRenderer cucumberRenderer;
@@ -123,19 +123,20 @@ public class Hand : MonoBehaviour
                 {
                     case Items.orange:
                         orangeRenderer.enabled = true;
-                        orangeRenderer.transform.position.Set(mousePosition.x - 2, mousePosition.y - 2, 0f);
+                        orange.transform.position = new Vector3(mousePosition.x - 0.5f, mousePosition.y, 0f);
+                        Debug.Log("orange held");
                         break;
                     case Items.cucumber:
                         cucumberRenderer.enabled = true;
-                        cucumberRenderer.transform.position.Set(mousePosition.x - 2, mousePosition.y - 2, 0f);
+                        cucumber.transform.position = new Vector3(mousePosition.x - 0.5f, mousePosition.y, 0f);
                         break;
                     case Items.towel:
                         towelRenderer.enabled = true;
-                        towelRenderer.transform.position.Set(mousePosition.x - 2, mousePosition.y - 2, 0f);
+                        towel.transform.position = new Vector3(mousePosition.x - 0.5f, mousePosition.y, 0f);
                         break;
                     case Items.mask:
                         maskRenderer.enabled = true;
-                        maskRenderer.transform.position.Set(mousePosition.x - 2, mousePosition.y - 2, 0f);
+                        mask.transform.position = new Vector3(mousePosition.x - 0.5f, mousePosition.y, 0f);
                         break;
                 }
             }
@@ -147,7 +148,14 @@ public class Hand : MonoBehaviour
                 maskRenderer.enabled = false;
             }
         }
-            
+        else
+        {
+            orangeRenderer.enabled = false;
+            cucumberRenderer.enabled = false;
+            towelRenderer.enabled = false;
+            maskRenderer.enabled = false;
+        }
+
     }
 
 }
