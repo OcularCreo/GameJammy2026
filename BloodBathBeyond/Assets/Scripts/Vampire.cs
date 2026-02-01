@@ -13,7 +13,7 @@ public class Vampire : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
 
-    [SerializeField] private Items[] missingItems;
+    [SerializeField] private List<Items> missingItems;
 
     private bool treated;
     private vampireManager vampireManager;
@@ -34,8 +34,8 @@ public class Vampire : MonoBehaviour
         vampireManager = FindAnyObjectByType<vampireManager>();     //get the vampiremanager script
         treated = false;                                            //start treated as faulse
 
-        missingItems = new Items[Random.Range(1, 4)];   //Randomly choose how many missing items (1-3)
-        selectMissing(missingItems.Length);             //Call select missing items function to choose what's missing
+        //missingItems = new Items[Random.Range(1, 4)];   //Randomly choose how many missing items (1-3)
+        selectMissing(Random.Range(1,4));             //Call select missing items function to choose what's missing
 
         //ensure that the sprite renderer was found and set the sprite to the corresponding missing item
         if (spriteRenderer != null )
@@ -70,7 +70,7 @@ public class Vampire : MonoBehaviour
 
             int idx = Random.Range(0, itemPool.Count);  //pick a random existing index in the item pool
             Items selectedItem = itemPool[idx];         //Save the selected item
-            missingItems[i] = selectedItem;             //add the selected item to the missingItems array    
+            missingItems.Add(selectedItem);             //add the selected item to the missingItems array    
 
             itemPool.RemoveAt(idx);                     //the selected missing item from the pool to ensure it is not picked again
 
@@ -134,9 +134,18 @@ public class Vampire : MonoBehaviour
     }
 
 
-    void recieveItem(Items givenItem)
+    public void recieveItem(Items givenItem)
     {
-        
+
+        if (missingItems.Contains(givenItem))
+        {
+            missingItems.Remove(givenItem);
+            Debug.Log("Gave the CORRECT ITEM");
+        } else
+        {
+            Debug.Log("Gave the INCORRECT item - I want to suck your finger");
+        }
+
     }
 
     void attack()
