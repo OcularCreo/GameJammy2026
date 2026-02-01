@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   binSprites:
   - {fileID: -2202690206539420281, guid: 51772af41e33f044c8efb90378be72f9, type: 3}
-  - {fileID: 2743335605380727101, guid: 0e7edfeb97897a14b9618032a83533fd, type: 3}
+  - {fileID: 21300000, guid: 0e7edfeb97897a14b9618032a83533fd, type: 3}
   - {fileID: 1641916312712685520, guid: 5d3a979b73ab54749a5fea15a5343141, type: 3}
   - {fileID: -8050156454959291503, guid: dded35921f382e648aee308d406b0b32, type: 3}
   - {fileID: 4384966164718243188, guid: 4d1d46c87bbe07e498ec85a38288a516, type: 3}
@@ -107,7 +107,7 @@ SpriteRenderer:
   m_Size: {x: 12.009999, y: 8.993063}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &-4742427103757128680
