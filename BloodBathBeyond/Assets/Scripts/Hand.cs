@@ -87,7 +87,7 @@ public class Hand : MonoBehaviour
                 Debug.Log(hit.collider.gameObject.name);
                 if (hit.collider.gameObject.name == "vampire(Clone)")
                 {
-                    hit.collider.gameObject.GetComponent<Vampire>().RecieveItem(itemType);
+                    hit.collider.gameObject.GetComponent<Vampire>().recieveItem(itemType);
                     Debug.Log("Item dropped on vampire!");
                 }
             }
