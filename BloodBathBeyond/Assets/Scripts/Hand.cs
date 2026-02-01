@@ -18,7 +18,8 @@ public class Hand : MonoBehaviour
     //[SerializeField] GameObject bin;
     [SerializeField] GameObject[] bins;
     //private int binQuantity;
-    private Items binType;
+    private Items itemType;
+    private bool itemHeld = false;
     //[SerializeField] private ItemBin itemBin;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -57,11 +58,11 @@ public class Hand : MonoBehaviour
                 {
                     if (bin.GetComponent<ItemBin>().ItemCount > 0) // if the bin isn't empty
                     {
-                        binType = bin.GetComponent<ItemBin>().RemoveItem(); // remove one item from bin and get the bin type
+                        itemType = bin.GetComponent<ItemBin>().RemoveItem(); // remove one item from bin and get the bin type
                         //Debug.Log(bin.GetComponent<ItemBin>().ItemCount);
-
+                        itemHeld = true;
                         // set the cursor image to holding the correct item
-                        switch (binType)
+                        switch (itemType)
                         {
                             case Items.orange:
                                 Cursor.SetCursor(handOrange, handOrangeOffset, CursorMode.ForceSoftware);
@@ -79,6 +80,17 @@ public class Hand : MonoBehaviour
         else if(Input.GetMouseButtonUp(0)) // release left mouse button
         {
             Cursor.SetCursor(handOpen, handOpenOffset, CursorMode.ForceSoftware); // cursor to hand open
+            if (itemHeld)
+            {
+                itemHeld = false;
+                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+                Debug.Log(hit.collider.gameObject.name);
+                if (hit.collider.gameObject.name == "vampire(Clone)")
+                {
+                    hit.collider.gameObject.GetComponent<Vampire>().recieveItem(itemType);
+                    Debug.Log("Item dropped on vampire!");
+                }
+            }
         }
 
             
