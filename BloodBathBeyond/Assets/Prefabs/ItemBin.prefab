@@ -49,8 +49,8 @@ MonoBehaviour:
   binSprites:
   - {fileID: -2202690206539420281, guid: 51772af41e33f044c8efb90378be72f9, type: 3}
   - {fileID: 21300000, guid: 0e7edfeb97897a14b9618032a83533fd, type: 3}
-  - {fileID: 1641916312712685520, guid: 5d3a979b73ab54749a5fea15a5343141, type: 3}
-  - {fileID: -8050156454959291503, guid: dded35921f382e648aee308d406b0b32, type: 3}
+  - {fileID: -8811208353318482207, guid: 8110b5685f4832c40af94e5be5b42c34, type: 3}
+  - {fileID: -858048173045449765, guid: 3448693929153db4bb06ddb21a786a53, type: 3}
   - {fileID: 4384966164718243188, guid: 4d1d46c87bbe07e498ec85a38288a516, type: 3}
   spriteRenderer: {fileID: -6395025623661309306}
   itemType: 5

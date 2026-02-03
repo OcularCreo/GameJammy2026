@@ -132,7 +132,7 @@ public class Hand : MonoBehaviour
                         break;
                     case Items.towel:
                         towelRenderer.enabled = true;
-                        towel.transform.position = new Vector3(mousePosition.x - 0.5f, mousePosition.y, 0f);
+                        towel.transform.position = new Vector3(mousePosition.x - 0.3f, mousePosition.y, 0f);
                         break;
                     case Items.mask:
                         maskRenderer.enabled = true;
